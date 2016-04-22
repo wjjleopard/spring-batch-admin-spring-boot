@@ -36,45 +36,45 @@ import java.util.List;
 @EnableBatchProcessing(modular = true)
 public class TestBatchConfiguration {
 
-	@Autowired
-	private JobBuilderFactory jobBuilderFactory;
+  @Autowired
+  private JobBuilderFactory jobBuilderFactory;
 
-	@Autowired
-	private StepBuilderFactory stepBuilderFactory;
+  @Autowired
+  private StepBuilderFactory stepBuilderFactory;
 
-	@Bean
-	public Job job() {
-		return jobBuilderFactory.get("job").start(step()).build();
-	}
+  @Bean
+  public Job job() {
+    return jobBuilderFactory.get("job").start(step()).build();
+  }
 
-	@Bean
-	public Step step() {
-		return stepBuilderFactory.get("step").chunk(1).reader(reader()).writer(writer()).build();
-	}
+  @Bean
+  public Step step() {
+    return stepBuilderFactory.get("step").chunk(1).reader(reader()).writer(writer()).build();
+  }
 
-	@Bean
-	public ItemReader<String> reader() {
-		return new ListItemReader<String>(Arrays.asList("1", "2", "3"));
-	}
+  @Bean
+  public ItemReader<String> reader() {
+    return new ListItemReader<String>(Arrays.asList("1", "2", "3"));
+  }
 
-	@Bean
-	public ItemWriter<? super Object> writer() {
-		return new ItemWriter<Object>() {
-			@Override
-			public void write(List<? extends Object> items) throws Exception {
-				System.out.println(items);
-			}
-		};
-	}
+  @Bean
+  public ItemWriter<? super Object> writer() {
+    return new ItemWriter<Object>() {
+      @Override
+      public void write(List<? extends Object> items) throws Exception {
+        System.out.println(items);
+      }
+    };
+  }
 
-	@Bean
-	public DataSource dataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		//dataSource.setDriverClassName(jdbcDriver.class.getCanonicalName());
-		dataSource.setUrl("jdbc:hsqldb:hsql://localhost");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
-		return dataSource;
-	}
+  @Bean
+  public DataSource dataSource() {
+    BasicDataSource dataSource = new BasicDataSource();
+    //dataSource.setDriverClassName(jdbcDriver.class.getCanonicalName());
+    dataSource.setUrl("jdbc:hsqldb:hsql://localhost");
+    dataSource.setUsername("sa");
+    dataSource.setPassword("");
+    return dataSource;
+  }
 
 }

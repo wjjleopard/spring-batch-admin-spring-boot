@@ -30,19 +30,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Thomas Bosch
  */
-@ContextConfiguration(classes = { TestBatchConfiguration.class })
+@ContextConfiguration(classes = {TestBatchConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BatchTest {
 
-	@Autowired
-	private JobLauncher jobLauncher;
+  @Autowired
+  private JobLauncher jobLauncher;
 
-	@Autowired
-	private Job job;
+  @Autowired
+  private Job job;
 
-	@Test
-	public void startBatch() throws Exception {
-		jobLauncher.run(job, new JobParameters());
-	}
+  @Test
+  public void startBatch() throws Exception {
+    jobLauncher.run(job, new JobParameters());
+  }
 
 }
